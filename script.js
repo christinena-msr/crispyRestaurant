@@ -9,6 +9,8 @@ $("#add-btn").on("click", function (event) {
         uniqueID: $("#uniqueID").val().trim()
     };
 
+    console.log(reservation);
+
     $.post("/api/tables", reservation)
         .then(function (data) {
             console.log(data);

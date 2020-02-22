@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars - Express</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="text-center">
+          <span class = "fa fa-fire"></span>
+          Hot Restaurant
+        </h1>
+      <h3>We only have 5 tables! Reserve your spot now.</h3>
+      <hr>
+      <a href="/reserve"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>Make Reservation</button></a>
+      <a href="/"><button class="btn btn-danger btn-lg"><span
+            class="fa fa-eye"></span>Home</button></a>
+    </div>
+
+    <div class = "row">
+        <div class = 'col-lg-12'>
+            <div class = 'panel panel-default'>
+                <div class ='panel-heading'>
+                    <h4 class = 'panel-title'>Current Reservations</h4>
+                </div>
+                <div class = 'panel-body' id = 'tablesSection'>
+
+                </div>
+                <div class = 'panel-heading'>
+                    <h4 class = 'panel-title'>Waiting List</h4>
+                </div>
+                <div class = 'panel-body' id = 'waitListSection'>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<script>
+    const dataQuery = function() {
+        const currentUrl = window.location.origin;
+        fetch(currentUrl + "/api/all-reservations")
+        .then(response =>{
+            return response.json();
+        })
+            .then(json => {
+                const tables = json.tables;
+                const waitList = json.waitList;
+
+                const tablesSection = document.querySelector('#tablesSection');
+                const waitListSection = document.querySelector('#waitListSection');
+
+                for (let i = 0; i < tables.length; i++) {
+                    let tableNumber = i + 1;
+                    const tableSection = document.createElement('div');
+                    tableSection.setAttribute('class', 'well');
+                    tableSection.setAttribute('id', `tableWell-${tableNumber}`);
+                    tablesSection.append(tableSection);
+
+                    
+                    // const dataHtml = `<h2><span class = 'label label-primary'>${tableNumber}</span> | ${tables[i].uniqueID}</h2>`;
+                    const h2 = document.createElement('h2');
+                    const span = document.createElement('span');
+                    span.setAttribute('class', 'label label-primary')
+                    span.textContent =`${tableNumber}`;
+                    h2.textContent = ` | ${tables[i].uniqueID}`;
+                    const currentSection = document.querySelector(`#tableWell-${tableNumber}`);
+                    h2.prepend(span);
+                    currentSection.append(h2);
+                }
+
+                for (let i = 0; i < waitList.length; i++) {
+                    let tableNumber = i + 1;
+                    const tableSection = document.createElement('div');
+                    tableSection.setAttribute('class', 'well');
+                    tableSection.setAttribute('id', `waitWell-${tableNumber}`);
+                    waitListSection.append(tableSection);
+
+                    
+                    // const dataHtml = `<h2><span class = 'label label-primary'>${tableNumber}</span> | ${tables[i].uniqueID}</h2>`;
+                    const h2 = document.createElement('h2');
+                    const span = document.createElement('span');
+                    span.setAttribute('class', 'label label-primary')
+                    span.textContent =`${tableNumber}`;
+                    h2.textContent = ` | ${waitList[i].uniqueID}`;
+                    const currentSection = document.querySelector(`#waitWell-${tableNumber}`);
+                    h2.prepend(span);
+                    currentSection.append(h2);
+                }
+            })
+    };
+
+    dataQuery();
+
+
+</script>
+
+</body>
+
+</html>

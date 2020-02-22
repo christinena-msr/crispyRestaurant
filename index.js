@@ -27,16 +27,21 @@ app.get("/api/waitlist", function(req, res) {
     return res.json(savedCustomers.waitList);
 });
 
+app.get("/api/all-reservations", function(req, res) {
+    return res.json(savedCustomers);
+});
+
 app.post("/api/tables", function(req, res) {
     let newReservation = req.body;
 
     let currentTable = savedCustomers.tables.length;
-    if (savedCustomers.tables.length <= 5) {
+    let currentWaitlist = savedCustomers.waitList.length;
+    if (currentTable < 5) {
         savedCustomers.tables.push(newReservation);
-        res.json({response: 'Added to table'});
+        res.json({response: `Thank you for making a reservation. You have been assinged to table ${currentTable + 1}`});
     } else {
         savedCustomers.waitList.push(newReservation);
-        res.json({response: 'Added to waitlist'});
+        res.json({response: `Tables are currently full. You have been added to the waitlist. There are currently ${currentWaitlist} tables ahead of you`});
     }
 })
 

@@ -34,7 +34,7 @@
             <h4>Table Reservation</h4>
           </div>
           <div class="card-body">
-            <form method="POST" role="form">
+            <form method="POST" role="form" id = 'myForm'>
 
               <div class="form-group">
                 <label for="name">Name</label>
@@ -43,7 +43,7 @@
 
               <div class="form-group">
                 <label for="role">Phone Number</label>
-                <input type="text" class="form-control" id="phone">
+                <input type="text" class="form-control" id="phone" maxlength="10" minlength="10">
               </div>
 
               <div class="form-group">
@@ -69,6 +69,27 @@
   </div>
 
 
+  <script>
+      $("#add-btn").on("click", function (event) {
+    event.preventDefault();
+
+    var reservation = {
+        name: $("#name").val().trim(),
+        phone: $("#phone").val().trim(),
+        email: $("#email").val().trim(),
+        uniqueID: $("#uniqueID").val().trim()
+    };
+
+    console.log(reservation);
+
+    $.post("/api/tables", reservation)
+        .then(function (data) {
+            console.log(data);
+            alert(data.response);
+
+            $("#myForm").trigger('reset');
+        });
+});
   </script>
 
 </body>

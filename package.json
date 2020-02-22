@@ -1,0 +1,24 @@
+{
+  "name": "crispyRestaurant",
+  "version": "1.0.0",
+  "description": "Simple app to make and check a restaurant's reservations.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crispysodium/crispyRestaurant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crispysodium/crispyRestaurant/issues"
+  },
+  "homepage": "https://github.com/crispysodium/crispyRestaurant#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
